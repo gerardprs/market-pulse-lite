@@ -1,6 +1,6 @@
 streamlit
 pandas
-requests
+yfinance
 feedparser
 textblob
 weasyprint==60.2
