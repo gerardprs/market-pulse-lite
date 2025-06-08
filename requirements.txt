@@ -1,3 +1,5 @@
+# requirements.txt
+
 streamlit
 pandas
 numpy
@@ -8,3 +10,5 @@ plotly
 fpdf2
 feedparser
 textblob
+fredapi
+xlsxwriter
