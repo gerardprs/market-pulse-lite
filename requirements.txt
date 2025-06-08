@@ -1,0 +1,1 @@
+text<br>streamlit<br>pandas<br>fredapi<br>feedparser<br>textblob<br>plotly<br>python-dotenv<br>weasyprint<br>
