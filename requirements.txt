@@ -3,5 +3,4 @@ pandas
 requests
 feedparser
 textblob
-plotly
 weasyprint==60.2
