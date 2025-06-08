@@ -1,14 +1,14 @@
 # requirements.txt
 
-streamlit
 pandas
 numpy
+fredapi
+XlsxWriter
 yfinance
+streamlit
 statsmodels
 scikit-learn
 plotly
-fpdf2
 feedparser
 textblob
-fredapi
-xlsxwriter
+fpdf2
