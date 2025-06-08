@@ -1,1 +1,8 @@
-text<br>streamlit<br>pandas<br>fredapi<br>feedparser<br>textblob<br>plotly<br>python-dotenv<br>weasyprint<br>
+streamlit
+pandas
+fredapi
+feedparser
+textblob
+plotly
+python-dotenv
+weasyprint==60.2
