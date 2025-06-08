@@ -1,8 +1,7 @@
 streamlit
 pandas
-fredapi
+requests
 feedparser
 textblob
 plotly
-python-dotenv
 weasyprint==60.2
