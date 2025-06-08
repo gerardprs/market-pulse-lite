@@ -20,11 +20,12 @@ API_KEY = "62deb3b46aa3632a30ee4f2885c1f32a"
 # Mapear sólo IDs válidos en FRED
 # ---------------------------------------
 SERIES = {
-    "PMI":        "PMI",          # Purchasing Managers Index
-    "PCEPI":      "PCE_YoY",      # Personal Consumption Expenditures YoY
-    "UNRATE":     "Unemployment", # Unemployment Rate
-    "T5YIFR":     "Breakeven_5y5y" # 5-year Breakeven Inflation
+    "NAPMNOI": "PMI",
+    "PCEPI"  : "PCE_YoY",
+    "UNRATE" : "Unemployment",
+    "T5YIFR" : "Breakeven_5y5y"
 }
+
 
 @st.cache_data
 def get_macro():
