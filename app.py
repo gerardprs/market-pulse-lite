@@ -1,4 +1,4 @@
-# app.py — Market Pulse Lite (datos macro desde Yahoo Finance)
+# app.py — Market Pulse Lite (datos macro desde Yahoo Finance, con PDF y sentimiento)
 
 import datetime as dt
 import base64
@@ -24,13 +24,15 @@ SERIES = {
 def get_macro():
     dfs = []
     for ticker, label in SERIES.items():
-        # Descarga 3 años diarios (precio de cierre)
         hist = yf.download(ticker, period="3y", progress=False)
         if hist.empty:
             st.warning(f"⚠️ Ticker {ticker} no disponible.")
             continue
-        s = hist["Close"].rename(label)
+        # Extraemos el cierre y renombramos la Serie
+        s = hist["Close"].copy()
+        s.name = label
         dfs.append(s)
+    # Concatenar todas las series en un DataFrame
     return pd.concat(dfs, axis=1) if dfs else pd.DataFrame()
 
 @st.cache_data
@@ -38,9 +40,8 @@ def get_sentiment():
     RSS = "http://feeds.reuters.com/reuters/businessNews"
     feed = feedparser.parse(RSS)
     rows = []
-    # Tomamos sólo los primeros 50 titulares
     for entry in feed.entries[:50]:
-        # Fecha: published_parsed o UTC actual
+        # Fecha: preferimos published_parsed
         if hasattr(entry, "published_parsed"):
             ts = dt.datetime(*entry.published_parsed[:6])
         else:
@@ -68,7 +69,7 @@ def main():
     st.title("📊 Market Pulse Lite")
     st.caption(f"Actualizado: {dt.datetime.utcnow():%Y-%m-%d %H:%M} UTC")
 
-    # — 1. Macro —
+    # 1. Macro chart + tabla
     macro = get_macro()
     if macro.empty:
         st.error("No se pudo cargar los datos macro.")
@@ -81,7 +82,7 @@ def main():
         st.subheader("Último dato disponible")
         st.table(latest)
 
-    # — 2. Sentiment —
+    # 2. Sentiment chart
     sentiment = get_sentiment()
     if sentiment.empty:
         st.warning("No hay datos de sentimiento disponibles.")
@@ -90,9 +91,9 @@ def main():
         st.subheader("Sentimiento Reuters (últimas 24 h)")
         st.line_chart(sent_hourly.tail(24))
 
-    # — 3. PDF —
+    # 3. PDF download
     if not macro.empty and st.button("📄 Descargar PDF"):
-        pdf_path = to_pdf(macro.tail(1).iloc[0])
+        pdf_path = to_pdf(latest["Value"])
         with open(pdf_path, "rb") as f:
             b64 = base64.b64encode(f.read()).decode()
         link = (
