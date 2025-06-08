@@ -1,6 +1,9 @@
 streamlit
 pandas
 yfinance
+statsmodels
+scikit-learn
+plotly
+fpdf2
 feedparser
 textblob
-weasyprint==60.2
