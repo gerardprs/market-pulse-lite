@@ -1,15 +1,12 @@
 #!/usr/bin/env python
-import os
 import datetime as dt
 import numpy as np
 import pandas as pd
 from fredapi import Fred
 
 def main():
-    # 1) Configuración
-    API_KEY = os.getenv("FRED_API_KEY")
-    if not API_KEY:
-        raise RuntimeError("Define FRED_API_KEY en variables de entorno")
+    # 1) Clave FRED embebida para demo
+    API_KEY = "62deb3b46aa3632a30ee4f2885c1f32a"
     fred = Fred(api_key=API_KEY)
 
     # 2) Series a descargar (código FRED → etiqueta)
@@ -54,4 +51,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
