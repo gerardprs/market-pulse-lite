@@ -6,11 +6,11 @@ import feedparser
 from textblob import TextBlob
 import weasyprint
 
-# --------  Configuración --------
-# Intenta primero con st.secrets (Streamlit Cloud); si no existe, con os.environ
+# ——————  CONFIG ——————
+# Primero intenta con st.secrets (prod), si no, con env var (local)
 API_KEY = st.secrets.get("FRED_API_KEY") or os.getenv("FRED_API_KEY")
 if not API_KEY:
-    st.error("❌ No se encontró FRED_API_KEY en st.secrets ni en os.environ")
+    st.error("🚨 No encuentro FRED_API_KEY en st.secrets ni en variables de entorno.")
     st.stop()
 
 fred = Fred(api_key=API_KEY)
