@@ -1,5 +1,3 @@
-# requirements.txt
-
 pandas
 numpy
 fredapi
