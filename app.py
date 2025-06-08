@@ -1,17 +1,19 @@
-# app.py  —  Market Pulse Lite
-
 import os, datetime as dt, base64, tempfile
 import pandas as pd
 import streamlit as st
 from fredapi import Fred
-from dotenv import load_dotenv
 import feedparser
 from textblob import TextBlob
 import weasyprint
 
 # --------  Configuración --------
-load_dotenv()  # carga FRED_API_KEY desde .env o Secrets
-fred = Fred(api_key=os.getenv("FRED_API_KEY"))
+# Intenta primero con st.secrets (Streamlit Cloud); si no existe, con os.environ
+API_KEY = st.secrets.get("FRED_API_KEY") or os.getenv("FRED_API_KEY")
+if not API_KEY:
+    st.error("❌ No se encontró FRED_API_KEY en st.secrets ni en os.environ")
+    st.stop()
+
+fred = Fred(api_key=API_KEY)
 
 # Indicadores macro (código FRED → etiqueta)
 SERIES = {
